@@ -1,0 +1,30 @@
+{
+    "name": "wilbere/upload-files",
+    "description": "Paquete que me facilitará crear un CRUD y subir, descargar y eliminar archivos del servidor",
+    "type": "library",
+    "license": "MIT",
+    "version": "1.0.0",
+    "autoload": {
+        "psr-4": {
+            "Wilbere\\UploadFiles\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Wilber Galindez",
+            "email": "hi@wilber.es",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require-dev": { 
+        "orchestra/testbench": "9.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Wilbere\\UploadFiles\\Providers\\UploadFilesServiceProvider"
+            ]
+        }
+    }
+}
