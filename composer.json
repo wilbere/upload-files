@@ -16,7 +16,7 @@
             "role": "Developer"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require-dev": { 
         "orchestra/testbench": "9.0"
     },
