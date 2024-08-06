@@ -18,6 +18,7 @@ class UploadFilesServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../../database/migrations/create_files_table.php.stub' => $this->getMigrationFileName('create_files_tables.php'),
+            __DIR__.'/../../database/migrations/create_images_table.php.stub' => $this->getMigrationFileName('create_images_tables.php'),
         ], 'upload-file-migration');
     }
 

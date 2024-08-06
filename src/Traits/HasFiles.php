@@ -1,5 +1,7 @@
 <?php
 
+namespace Wilbere\UploadFiles\Traits;
+
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Wilbere\UploadFiles\Models\File;

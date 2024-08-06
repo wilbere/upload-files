@@ -3,7 +3,7 @@
     "description": "Paquete para facilitar crear un CRUD de archivos y imagenes en BD",
     "type": "library",
     "license": "MIT",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "autoload": {
         "psr-4": {
             "Wilbere\\UploadFiles\\": "src/"
