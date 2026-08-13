@@ -4,16 +4,17 @@ namespace Wilbere\UploadFiles\Traits;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Http\UploadedFile;
 use Wilbere\UploadFiles\Models\File;
 
-class HasFiles
+trait HasFiles
 {
     /**
      * A model may have multiple files.
      */
     public function files(): MorphMany
     {
-        $this->morphMany(File::class, 'fileable');
+        return $this->morphMany(File::class, 'fileable');
     }
 
 
@@ -22,7 +23,20 @@ class HasFiles
      */
     public function file(): MorphOne
     {
-        $this->morphOne(File::class, 'fileable');
+        return $this->morphOne(File::class, 'fileable');
+    }
+
+    /**
+     * Upload and attach a file to the model.
+     */
+    public function uploadFile(UploadedFile $uploadedFile, string $folder = 'files', string $disk = 'public'): File
+    {
+        $path = $uploadedFile->store($folder, $disk);
+
+        return $this->files()->create([
+            'name' => $uploadedFile->getClientOriginalName(),
+            'path' => $path,
+        ]);
     }
 
 }
