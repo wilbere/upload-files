@@ -1,4 +1,4 @@
-# Wilbere Upload Files
+# Upload Files
 
 A Laravel package that simplifies the creation of a files and images CRUD using polymorphic relationships (MorphTo / MorphMany), automatically integrating physical storage into Laravel's `Storage` disks and handling the cleanup of residual files.
 
