@@ -10,6 +10,18 @@ use Wilbere\UploadFiles\Models\File;
 trait HasFiles
 {
     /**
+     * Boot the trait to listen for the deleting event.
+     */
+    public static function bootHasFiles()
+    {
+        static::deleting(function ($model) {
+            $model->files->each(function ($file) {
+                $file->delete();
+            });
+        });
+    }
+
+    /**
      * A model may have multiple files.
      */
     public function files(): MorphMany

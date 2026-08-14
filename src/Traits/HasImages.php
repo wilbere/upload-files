@@ -10,6 +10,18 @@ use Wilbere\UploadFiles\Models\Image;
 trait HasImages
 {
     /**
+     * Boot the trait to listen for the deleting event.
+     */
+    public static function bootHasImages()
+    {
+        static::deleting(function ($model) {
+            $model->images->each(function ($image) {
+                $image->delete();
+            });
+        });
+    }
+
+    /**
      * A model may have multiple Images.
      */
     public function images(): MorphMany
