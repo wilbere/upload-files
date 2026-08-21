@@ -8,7 +8,6 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
 use Wilbere\UploadFiles\Models\Image;
 
 trait HasImages
@@ -46,7 +45,7 @@ trait HasImages
      */
     public function uploadImage(UploadedFile $uploadedFile, string $folder = 'images', string $disk = 'public'): Image
     {
-        $manager = new ImageManager(new Driver());
+        $manager = app(ImageManager::class);
         $image = $manager->read($uploadedFile);
         
         // Comprimir agresivamente a formato WebP (calidad 80%)
