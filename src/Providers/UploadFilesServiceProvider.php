@@ -5,12 +5,24 @@ namespace Wilbere\UploadFiles\Providers;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver as GdDriver;
+use Intervention\Image\Drivers\Imagick\Driver as ImagickDriver;
 
 class UploadFilesServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        
+        $this->app->singleton(ImageManager::class, function ($app) {
+            $driverName = config('upload-files.image_driver', 'gd');
+            
+            $driver = match ($driverName) {
+                'imagick' => new ImagickDriver(),
+                default => new GdDriver(),
+            };
+            
+            return new ImageManager($driver);
+        });
     }
 
 

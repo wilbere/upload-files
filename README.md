@@ -4,8 +4,9 @@ A Laravel package that simplifies the creation of a files and images CRUD using 
 
 ## Requirements
 
-- PHP 8.1, 8.2 or 8.3
-- Laravel 10.x or 11.x
+- PHP 8.1, 8.2, 8.3 or 8.4
+- Laravel 10.x, 11.x or 12.x
+- Intervention Image ^3.0 (Installed automatically)
 
 ## Installation
 
@@ -49,6 +50,9 @@ class User extends Model
 ### 2. Upload Files and Images
 
 The package provides the `uploadFile()` and `uploadImage()` methods, which handle both saving the file physically using Laravel's native `Storage` system and simultaneously creating the polymorphic record in the database.
+
+> [!NOTE]
+> **Aggressive WebP Compression:** `uploadImage()` automatically intercepts the uploaded image, compresses it to WebP format (80% quality) using Intervention Image v3, and stores it directly on your selected storage disk. This drastically reduces file sizes and is perfect for Cloud Storage.
 
 ```php
 use Illuminate\Http\Request;
@@ -99,7 +103,7 @@ To display images in Blade (make sure you have configured `php artisan storage:l
 
 This package includes native events (Booted Observers) in the `File` and `Image` models. 
 
-When calling the `delete()` method on the relationship, the package will automatically find the corresponding physical file on your disk (using `Storage::disk('public')`) and delete it from your server before deleting the database record. No more orphaned files!
+When calling the `delete()` method on the relationship, the package will automatically find the corresponding physical file on your disk (reading the `disk` column saved in the database, e.g. `s3` or `public`) and delete it from your server before deleting the database record. No more orphaned files on Cloud Storage!
 
 ```php
 // This deletes the database record AND the associated physical file from the disk simultaneously.

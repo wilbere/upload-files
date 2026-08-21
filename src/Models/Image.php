@@ -10,7 +10,8 @@ class Image extends Model
 {
 
     protected $fillable = [
-        'url'
+        'url',
+        'disk'
     ];
 
     /**
@@ -19,8 +20,9 @@ class Image extends Model
     protected static function booted()
     {
         static::deleted(function ($image) {
-            if (Storage::disk('public')->exists($image->url)) {
-                Storage::disk('public')->delete($image->url);
+            $disk = $image->disk ?? 'public';
+            if (Storage::disk($disk)->exists($image->url)) {
+                Storage::disk($disk)->delete($image->url);
             }
         });
     }
