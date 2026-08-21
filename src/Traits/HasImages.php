@@ -48,10 +48,12 @@ trait HasImages
         $manager = app(ImageManager::class);
         $image = $manager->read($uploadedFile);
         
-        // Comprimir agresivamente a formato WebP (calidad 80%)
-        $encoded = $image->toWebp(80);
+        $quality = config('upload-files.webp_quality', 80);
+        $encoded = $image->toWebp($quality);
         
-        $filename = Str::random(40) . '.webp';
+        $length = config('upload-files.filename_length', 40);
+        $filename = Str::random($length) . '.webp';
+        
         $path = trim($folder, '/') . '/' . $filename;
         
         // Subir al disco correspondiente (soporta s3/r2 de forma nativa)
